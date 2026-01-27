@@ -33,9 +33,13 @@ function PostCard({ post, commentsCount = 0 }) {
             style={{
               fontSize: "0.95rem",
               color: "#000000",
+              flexDirection: "row",
             }}
           >
-            <span className="d-flex align-items-center">
+            <span
+              className="d-flex align-items-center"
+              style={{ whiteSpace: "nowrap", flexDirection: "row", gap: "4px" }}
+            >
               <svg
                 width="18"
                 height="18"
@@ -45,15 +49,17 @@ function PostCard({ post, commentsCount = 0 }) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="me-1"
                 aria-hidden="true"
               >
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
               </svg>
-              {post.likesCount || 0} like{post.likesCount !== 1 ? "s" : ""}
+              <span>{post.likesCount || 0}</span>
             </span>
 
-            <span className="d-flex align-items-center">
+            <span
+              className="d-flex align-items-center"
+              style={{ whiteSpace: "nowrap", flexDirection: "row", gap: "4px" }}
+            >
               <svg
                 width="18"
                 height="18"
@@ -63,12 +69,11 @@ function PostCard({ post, commentsCount = 0 }) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="me-1"
                 aria-hidden="true"
               >
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
               </svg>
-              {commentsCount} comment{commentsCount !== 1 ? "s" : ""}
+              <span>{commentsCount}</span>
             </span>
           </div>
 

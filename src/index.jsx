@@ -1,12 +1,11 @@
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./bootstrap-custom.css";
+import { AuthProvider } from "./context/AuthContext";
+import App from "./App";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './bootstrap-custom.css';
-import { AuthProvider } from './context/AuthContext';
-import App from './App';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthProvider>

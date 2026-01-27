@@ -5,6 +5,7 @@ A modern, full-featured blog platform built with React and Vite, featuring both 
 ## Features
 
 ### Front Office (Public)
+
 - **Browse Posts** - View all published blog posts with pagination
 - **Search** - Real-time search across post titles and content
 - **Comments** - Read and submit comments on posts (with moderation)
@@ -12,6 +13,7 @@ A modern, full-featured blog platform built with React and Vite, featuring both 
 - **Responsive Design** - Mobile-friendly interface using Bootstrap
 
 ### Back Office (Admin)
+
 - **Secure Login** - Password-protected admin panel
 - **Post Management** - Create, edit, and delete blog posts
 - **Comment Moderation** - Approve or reject user comments
@@ -35,17 +37,20 @@ A modern, full-featured blog platform built with React and Vite, featuring both 
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone <repository-url>
 cd work_a27952_a27947
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. Start the development server:
+
 ```bash
 npm run dev
 ```
@@ -106,7 +111,7 @@ To access the admin panel:
 The application uses Sheety API as a backend. The API base URL is configured in [src/services/api.js](src/services/api.js):
 
 ```javascript
-const BASE_URL = 'https://api.sheety.co/a9a3922f064f47011cd1091c07d29c94/blog';
+const BASE_URL = "https://api.sheety.co/a9a3922f064f47011cd1091c07d29c94/blog";
 ```
 
 ### API Endpoints
@@ -122,20 +127,24 @@ const BASE_URL = 'https://api.sheety.co/a9a3922f064f47011cd1091c07d29c94/blog';
 ## Key Features Implementation
 
 ### Authentication
+
 - Uses React Context API for state management
 - Persists login state in localStorage
 - Protected routes redirect to login page
 
 ### Comment System
+
 - Users can submit comments on posts
 - Comments require admin approval before appearing
 - Moderation panel in admin area
 
 ### Search & Filtering
+
 - Real-time search across post titles and content
 - Automatic pagination reset on search
 
 ### Pagination
+
 - 6 posts per page
 - Dynamic page navigation
 - Responsive controls
@@ -144,7 +153,7 @@ const BASE_URL = 'https://api.sheety.co/a9a3922f064f47011cd1091c07d29c94/blog';
 
 This project is private and proprietary.
 
-## Author
+## Authors
 
 Mariia Yakovenko aluno 27947
 Ardita Kalludra aluno 27952

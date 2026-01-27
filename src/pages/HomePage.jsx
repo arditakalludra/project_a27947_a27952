@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import PostCard from "../components/frontOffice/PostCard";
 import SearchBar from "../components/frontOffice/SearchBar";
 import Pagination from "../components/frontOffice/Pagination";
 import { getPosts, getComments } from "../services/api";
 
 export default function HomePage() {
+  const location = useLocation();
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,13 +17,13 @@ export default function HomePage() {
 
   useEffect(() => {
     loadPosts();
-  }, []);
+  }, [location.key]);
 
   useEffect(() => {
     const results = posts.filter(
       (post) =>
         post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        post.content.toLowerCase().includes(searchTerm.toLowerCase()),
+        post.content.toLowerCase().includes(searchTerm.toLowerCase())
     );
     setFilteredPosts(results);
     setCurrentPage(1);
@@ -35,7 +37,7 @@ export default function HomePage() {
       ]);
 
       const sorted = postsData.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       );
       setPosts(sorted);
 

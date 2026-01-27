@@ -34,3 +34,32 @@ export const getCommentsCountByPostId = async (post_id) => {
   return comments.filter((c) => c.postId === Number(post_id) && c.isApproved)
     .length;
 };
+
+export const updatePostLikes = async (postId, newLikesCount) => {
+  try {
+    const posts = await getPosts();
+    const post = posts.find((p) => p.id === Number(postId));
+
+    if (!post) {
+      throw new Error("Post not found");
+    }
+
+    const updatedPost = {
+      id: post.id,
+      title: post.title,
+      content: post.content,
+      author: post.author,
+      imageUrl: post.imageUrl || "",
+      createdAt: post.createdAt,
+      likesCount: newLikesCount,
+    };
+
+    const result = await api.put(`/posts/${postId}`, {
+      post: updatedPost,
+    });
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};

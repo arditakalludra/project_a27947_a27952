@@ -1,17 +1,20 @@
-// src/App.js
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-import Layout from './components/layout/Layout';
-import HomePage from './pages/HomePage';
-import PostPage from './pages/PostPage';
-import LoginPage from './pages/LoginPage';
-import BackofficePage from './pages/BackofficePage';
+import Layout from "./components/layout/Layout";
+import HomePage from "./pages/HomePage";
+import PostPage from "./pages/PostPage";
+import LoginPage from "./pages/LoginPage";
+import BackofficePage from "./pages/BackofficePage";
 
-import { useAuth } from './context/AuthContext';
+import { useAuth } from "./context/AuthContext";
 
-// Protected Route Wrapper
 function ProtectedRoute({ children }) {
   const { isLoggedIn } = useAuth();
   return isLoggedIn ? children : <Navigate to="/login" replace />;

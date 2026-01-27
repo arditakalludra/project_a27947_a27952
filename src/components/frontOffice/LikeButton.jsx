@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../../context/AuthContext";
+
 function HeartFilledIcon({ size = 18 }) {
   return (
     <svg
@@ -46,49 +48,78 @@ function HeartOutlineIcon({ size = 18 }) {
     </svg>
   );
 }
-import { updatePost } from "../../services/api";
+import { updatePostLikes } from "../../services/api";
 
-function LikeButton({ postId, initialLikes }) {
-  const [likes, setLikes] = useState(initialLikes);
+function LikeButton({ postId, initialLikes, onLikesChange }) {
+  const { isLoggedIn } = useAuth();
   const [liked, setLiked] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const currentLikesRef = React.useRef(initialLikes);
+
+  React.useEffect(() => {
+    currentLikesRef.current = initialLikes;
+  }, [initialLikes]);
+
+  const getLikedPostsKey = () => {
+    return isLoggedIn ? "likedPosts_admin" : "likedPosts_guest";
+  };
 
   useEffect(() => {
-    const likedPosts = JSON.parse(localStorage.getItem("likedPosts") || "[]");
+    const storageKey = getLikedPostsKey();
+    const likedPosts = JSON.parse(localStorage.getItem(storageKey) || "[]");
     if (likedPosts.includes(postId)) {
       setLiked(true);
+    } else {
+      setLiked(false);
     }
-  }, [postId]);
+  }, [postId, isLoggedIn]);
 
   const handleLike = async () => {
-    if (liked) return;
+    if (isUpdating) {
+      return;
+    }
 
-    const newLikes = likes + 1;
-    setLikes(newLikes);
-    setLiked(true);
+    setIsUpdating(true);
+    const storageKey = getLikedPostsKey();
+    const likedPosts = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    const currentLikes = currentLikesRef.current;
+    let newLikes;
+    let newLiked;
 
-    localStorage.setItem(
-      "likedPosts",
-      JSON.stringify([
-        ...JSON.parse(localStorage.getItem("likedPosts") || "[]"),
-        postId,
-      ]),
-    );
+    if (liked) {
+      newLikes = Math.max(0, currentLikes - 1);
+      newLiked = false;
+      const updatedLikedPosts = likedPosts.filter((id) => id !== postId);
+      localStorage.setItem(storageKey, JSON.stringify(updatedLikedPosts));
+    } else {
+      newLikes = currentLikes + 1;
+      newLiked = true;
+      const updatedLikedPosts = [...likedPosts, postId];
+      localStorage.setItem(storageKey, JSON.stringify(updatedLikedPosts));
+    }
+
+    setLiked(newLiked);
+    currentLikesRef.current = newLikes;
 
     try {
-      await updatePost(postId, { likesCount: newLikes });
+      await updatePostLikes(postId, newLikes);
+      if (onLikesChange) {
+        onLikesChange(newLikes);
+      }
     } catch (error) {
-      console.error("Failed to update like count:", error);
-      setLikes(likes); // revert on error
-      setLiked(false);
+      setLiked(liked);
+      currentLikesRef.current = currentLikes;
+      localStorage.setItem(storageKey, JSON.stringify(likedPosts));
+    } finally {
+      setIsUpdating(false);
     }
   };
 
   return (
     <button
       onClick={handleLike}
-      disabled={liked}
       className="btn btn-sm"
-      title={liked ? "You liked this!" : "Like this post"}
+      title={liked ? "Unlike this post" : "Like this post"}
       style={{
         backgroundColor: liked ? "#000000" : "transparent",
         color: liked ? "white" : "#000000",
@@ -97,22 +128,27 @@ function LikeButton({ postId, initialLikes }) {
         padding: "0.4rem 1rem",
         fontWeight: "600",
         transition: "all 0.3s ease",
-        cursor: liked ? "not-allowed" : "pointer",
+        cursor: "pointer",
       }}
       onMouseOver={(e) => {
-        if (!liked) {
-          e.target.style.backgroundColor = "#E0E0E0";
-          e.target.style.transform = "scale(1.05)";
+        if (liked) {
+          e.currentTarget.style.backgroundColor = "#333333";
+        } else {
+          e.currentTarget.style.backgroundColor = "#E0E0E0";
         }
+        e.currentTarget.style.transform = "scale(1.05)";
       }}
       onMouseOut={(e) => {
-        if (!liked) {
-          e.target.style.backgroundColor = "transparent";
-          e.target.style.transform = "scale(1)";
+        if (liked) {
+          e.currentTarget.style.backgroundColor = "#000000";
+        } else {
+          e.currentTarget.style.backgroundColor = "transparent";
         }
+        e.currentTarget.style.transform = "scale(1)";
       }}
     >
-      {liked ? <HeartFilledIcon /> : <HeartOutlineIcon />} {likes}
+      {liked ? <HeartFilledIcon /> : <HeartOutlineIcon />}{" "}
+      {currentLikesRef.current}
     </button>
   );
 }
