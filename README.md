@@ -71,7 +71,6 @@ src/
 ├── components/
 │   ├── backOffice/       # Admin panel components
 │   │   ├── CommentModeration.jsx
-│   │   ├── Login.jsx
 │   │   └── PostForm.jsx
 │   ├── frontOffice/      # Public-facing components
 │   │   ├── CommentForm.jsx
@@ -79,7 +78,6 @@ src/
 │   │   ├── LikeButton.jsx
 │   │   ├── Pagination.jsx
 │   │   ├── PostCard.jsx
-│   │   ├── PostDetail.jsx
 │   │   └── SearchBar.jsx
 │   └── layout/           # Layout components
 │       ├── Layout.jsx
