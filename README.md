@@ -6,18 +6,18 @@ A modern, full-featured blog platform built with React and Vite, featuring both 
 
 ### Front Office (Public)
 
-- **Browse Posts** - View all published blog posts with pagination
-- **Search** - Real-time search across post titles and content
-- **Comments** - Read and submit comments on posts (with moderation)
-- **Likes** - Like posts with visual feedback
-- **Responsive Design** - Mobile-friendly interface using Bootstrap
+- **Browse Posts** - view all published blog posts with pagination
+- **Search** - real-time search across post titles and content
+- **Comments** - read and submit comments on posts (with moderation)
+- **Likes** - like posts with visual feedback
+- **Responsive Design** - mobile-friendly interface using Bootstrap
 
 ### Back Office (Admin)
 
-- **Secure Login** - Password-protected admin panel
-- **Post Management** - Create, edit, and delete blog posts
-- **Comment Moderation** - Approve or reject user comments
-- **Dashboard** - Centralized content management
+- **Secure Login** - password-protected admin panel
+- **Post Management** - create, edit, and delete blog posts
+- **Comment Moderation** - approve or reject user comments
+- **Dashboard** - centralized content management
 
 ## Tech Stack
 
@@ -59,10 +59,10 @@ npm run dev
 
 ## Available Scripts
 
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build locally
-- `npm run lint` - Run ESLint code analysis
+- `npm run dev` - start development server with hot reload
+- `npm run build` - build for production
+- `npm run preview` - preview production build locally
+- `npm run lint` - run ESLint code analysis
 
 ## Project Structure
 
@@ -111,18 +111,18 @@ To access the admin panel:
 The application uses Sheety API as a backend. The API base URL is configured in [src/services/api.js](src/services/api.js):
 
 ```javascript
-const BASE_URL = "https://api.sheety.co/a9a3922f064f47011cd1091c07d29c94/blog";
+const BASE_URL = "https://api.sheety.co/d4f01202612fa0dc1c10f95812deb78c/blog";
 ```
 
 ### API Endpoints
 
-- `GET /posts` - Fetch all posts
-- `POST /posts` - Create a new post
-- `PUT /posts/:id` - Update a post
-- `DELETE /posts/:id` - Delete a post
-- `GET /comments` - Fetch all comments
-- `POST /comments` - Create a new comment
-- `PUT /comments/:id` - Update a comment (for moderation)
+- `GET /posts` - fetch all posts
+- `POST /posts` - create a new post
+- `PUT /posts/:id` - update a post
+- `DELETE /posts/:id` - delete a post
+- `GET /comments` - fetch all comments
+- `POST /comments` - create a new comment
+- `PUT /comments/:id` - update a comment (for moderation)
 
 ## Key Features Implementation
 
